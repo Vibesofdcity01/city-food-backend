@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+console.log('PORT environment variable:', process.env.PORT); // Add this line
+console.log('Using port:', port); // Add this line
 
 app.use(express.json());
 
