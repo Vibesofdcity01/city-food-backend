@@ -1,8 +1,12 @@
-const express = require('express');
+kkkkconst express = require('express');
 const cors = require('cors');
-const Paystack = require('paystack-api')('sk_live_24fb1a967515491c7a737d0fc06ca70d8b7e9fc4');
+const Paystack = require('@paystack/paystack-sdk');
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Initialize Paystack with your secret key
+const paystack = new Paystack('sk_live_24fb1a967515491c7a737d0fc06ca70d8b7e9fc4');
+
 console.log('PORT environment variable:', process.env.PORT);
 console.log('Using port:', port);
 
@@ -81,15 +85,30 @@ app.get('/restaurants', (req, res) => {
 app.post('/pay', async (req, res) => {
   const { email, amount } = req.body;
   try {
-    const transaction = await Paystack.transaction.initialize({
+    const transaction = await paystack.transaction.initialize({
       email,
-      amount: amount * 100,
+      amount: amount * 100, // Paystack expects amount in kobo
       callback_url: 'https://city-food-backend.onrender.com/payment-callback',
     });
     res.json({ paymentUrl: transaction.data.authorization_url });
   } catch (error) {
     console.error('Paystack error:', error);
     res.status(500).json({ error: 'Payment initialization failed' });
+  }
+});
+
+app.get('/payment-callback', async (req, res) => {
+  const { reference } = req.query;
+  try {
+    const transaction = await paystack.transaction.verify({ reference });
+    if (transaction.data.status === 'success') {
+      res.send('Payment successful');
+    } else {
+      res.status(400).send('Payment failed');
+    }
+  } catch (error) {
+    console.error('Payment verification error:', error);
+    res.status(500).send('Verification failed');
   }
 });
 
