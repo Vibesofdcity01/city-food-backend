@@ -4,7 +4,7 @@ const Paystack = require('@paystack/paystack-sdk');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Initialize Paystack with your secret key
+// Initialize Paystack
 const paystack = new Paystack('sk_live_24fb1a967515491c7a737d0fc06ca70d8b7e9fc4');
 
 console.log('PORT environment variable:', process.env.PORT);
@@ -21,9 +21,9 @@ const restaurants = [
     menu: ['Jollof Rice with Chicken', 'Fried Rice with Fish', 'Chicken and Chips'],
     prices: [2000, 2200, 2500],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      'https://images.unsplash.com/photo-1623332253366-82f2e9e88c07', // Jollof Rice with Chicken
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Fried Rice with Fish
+      'https://images.unsplash.com/photo-1626644837735-0b8f0f8a4e2d', // Chicken and Chips
     ],
   },
   {
@@ -33,9 +33,9 @@ const restaurants = [
     menu: ['Pounded Yam with Egusi', 'Amala with Ewedu', 'Eba with Vegetable Soup'],
     prices: [1800, 1500, 1700],
     images: [
-      'https://images.unsplash.com/photo-1592995709671-87626e2a1a5e',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      'https://images.unsplash.com/photo-1592995709671-87626e2a1a5e', // Pounded Yam with Egusi
+      'https://images.unsplash.com/photo-1604329768868-9641e9e4b6a7', // Amala with Ewedu
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Eba with Vegetable Soup
     ],
   },
   {
@@ -45,9 +45,9 @@ const restaurants = [
     menu: ['Semo with Egusi', 'Pounded Yam with Vegetable', 'Eba with Okra'],
     prices: [1600, 1800, 1500],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Semo with Egusi
+      'https://images.unsplash.com/photo-1592995709671-87626e2a1a5e', // Pounded Yam with Vegetable
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Eba with Okra
     ],
   },
   {
@@ -57,9 +57,9 @@ const restaurants = [
     menu: ['Jollof Rice with Fish', 'Fried Rice with Chicken', 'Eba with Egusi'],
     prices: [2000, 2200, 1800],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      'https://images.unsplash.com/photo-1623332253366-82f2e9e88c07', // Jollof Rice with Fish
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Fried Rice with Chicken
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Eba with Egusi
     ],
   },
   {
@@ -69,9 +69,9 @@ const restaurants = [
     menu: ['Rice and Stew', 'Pounded Yam with Egusi', 'Fried Plantain with Fish'],
     prices: [1800, 2000, 1500],
     images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Rice and Stew
+      'https://images.unsplash.com/photo-1592995709671-87626e2a1a5e', // Pounded Yam with Egusi
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c', // Fried Plantain with Fish
     ],
   },
 ];
@@ -113,7 +113,8 @@ app.get('/payment-callback', async (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
-  const order = { ...req.body, id: orders.length + 1, status: 'Order Placed', estimatedDelivery: '30 mins' };
+  const order)
+//   = { ...req.body, id: orders.length + 1, status: 'Order Placed', estimatedDelivery: '30 mins' };
   orders.push(order);
   console.log('Order received:', order);
   res.json({ status: 'Order placed successfully', orderId: order.id });
